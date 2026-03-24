@@ -3,10 +3,10 @@ from typing import Optional
 
 import httpx
 from concierge import Concierge
+from mcp.server.lowlevel.server import request_ctx
 
-app = Concierge("s2-streamstore")
+app = Concierge("s2-streamstore", host=os.environ.get("FASTMCP_HOST", "0.0.0.0"), port=int(os.environ.get("PORT", "8000")))
 
-S2_ACCESS_TOKEN = os.environ.get("S2_ACCESS_TOKEN", "")
 S2_BASE_URL = os.environ.get("S2_BASE_URL", "https://aws.s2.dev/v1")
 
 
@@ -19,8 +19,10 @@ def _basin_url(basin: str, path: str = "") -> str:
 
 
 def _headers() -> dict:
+    ctx = request_ctx.get()
+    token = ctx.request.headers.get("authorization", "").removeprefix("Bearer ")
     return {
-        "Authorization": f"Bearer {S2_ACCESS_TOKEN}",
+        "Authorization": f"Bearer {token}",
         "Content-Type": "application/json",
     }
 
@@ -471,9 +473,23 @@ app.transitions = {
 }
 
 
+from starlette.middleware.cors import CORSMiddleware
+
+http_app = app.streamable_http_app()
+http_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["mcp-session-id"],
+)
+
+
 def run():
-    app.run()
+    import uvicorn
+    port = int(os.environ.get("PORT", "8000"))
+    uvicorn.run(http_app, host="0.0.0.0", port=port)
 
 
 if __name__ == "__main__":
-    app.run()
+    run()
