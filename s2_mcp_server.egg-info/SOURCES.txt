@@ -1,0 +1,9 @@
+README.md
+main.py
+pyproject.toml
+s2_mcp_server.egg-info/PKG-INFO
+s2_mcp_server.egg-info/SOURCES.txt
+s2_mcp_server.egg-info/dependency_links.txt
+s2_mcp_server.egg-info/entry_points.txt
+s2_mcp_server.egg-info/requires.txt
+s2_mcp_server.egg-info/top_level.txt

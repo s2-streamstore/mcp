@@ -1,0 +1,12 @@
+[project]
+name = "s2-mcp-server"
+version = "0.1.0"
+description = "MCP server for S2 StreamStore using Concierge progressive disclosure"
+requires-python = ">=3.10"
+dependencies = [
+    "concierge-sdk",
+    "httpx",
+]
+
+[project.scripts]
+s2-mcp = "main:run"

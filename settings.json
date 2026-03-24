@@ -1,0 +1,5 @@
+{
+  "command": "python main.py",
+  "project_id": "concierge-app-p0s7k3",
+  "state_backend": "postgres"
+}

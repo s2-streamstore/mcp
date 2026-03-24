@@ -1,0 +1,2 @@
+[console_scripts]
+s2-mcp = main:run
