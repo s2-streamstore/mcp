@@ -7,7 +7,7 @@ from mcp.server.lowlevel.server import request_ctx
 
 app = Concierge("s2-streamstore", host=os.environ.get("FASTMCP_HOST", "0.0.0.0"), port=int(os.environ.get("PORT", "8000")))
 
-S2_BASE_URL = os.environ.get("S2_BASE_URL", "https://aws.s2.dev/v1")
+S2_BASE_URL = os.environ.get("S2_BASE_URL", "https://a.s2.dev/v1")
 
 
 def _account_url(path: str = "") -> str:
